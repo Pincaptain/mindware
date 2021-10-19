@@ -34,6 +34,9 @@ public class Email extends BeanValidatable<Email> {
         this.value = value;
     }
 
+    /**
+     * Verifies the email and sets the verified time to the current time.
+     */
     public void verify() {
         if (isInvalid()) {
             throw new InvalidEmailException(validate());

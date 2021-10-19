@@ -1,10 +1,13 @@
 package io.gjorovski.author.domain.entity;
 
+import io.gjorovski.author.domain.exception.InvalidEmailException;
+import io.gjorovski.author.domain.util.BeanValidatable;
 import io.gjorovski.author.domain.util.ExtendedStringUtils;
 import io.gjorovski.author.domain.util.ListUtils;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,13 +17,19 @@ import java.util.List;
  * @created 14/10/2021 - 1:57 PM
  * @project mindware
  */
-@Data
-@Builder
-public class User {
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = false)
+@ToString
+@AllArgsConstructor
+public class User extends BeanValidatable<User> {
 
     private Long id;
+    @NotNull
     private String username;
+    @NotNull
     private String password;
+    @NotNull
     private Email email;
     private String firstName = ExtendedStringUtils.empty();
     private String lastName = ExtendedStringUtils.empty();
@@ -35,9 +44,15 @@ public class User {
         this.email = email;
     }
 
+    /**
+     * Activates the user and verifies its email.
+     */
     public void activate() {
-        isActive = true;
+        if (isInvalid()) {
+            throw new InvalidEmailException(validate());
+        }
 
+        isActive = true;
         email.verify();
     }
 

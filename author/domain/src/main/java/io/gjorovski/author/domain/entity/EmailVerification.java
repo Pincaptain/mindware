@@ -21,6 +21,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 @ToString
+@AllArgsConstructor
 public class EmailVerification extends BeanValidatable<EmailVerification> {
 
     private final int EMAIL_VERIFICATION_LIFESPAN = 10;
@@ -39,6 +40,12 @@ public class EmailVerification extends BeanValidatable<EmailVerification> {
         return createdAt.plusMinutes(EMAIL_VERIFICATION_LIFESPAN);
     }
 
+    /**
+     * Provides a custom validation that prevents the user from being activated
+     * if the email verification expired.
+     *
+     * @return list of violations including the email verification expired
+     */
     @Override
     public List<Violation> validate() {
         List<Violation> violations = super.validate();
@@ -50,6 +57,9 @@ public class EmailVerification extends BeanValidatable<EmailVerification> {
         return violations;
     }
 
+    /**
+     * Activates the user that the verification object holds.
+     */
     public void verify() {
         if (isInvalid()) {
             throw new InvalidEmailVerificationException(validate());

@@ -2,6 +2,8 @@ package io.gjorovski.author.domain.entity;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Borjan Gjorovski
  * @version 1.0
@@ -16,8 +18,10 @@ import lombok.*;
 public class Role {
 
     private Long id;
+    @NotNull
     private String name;
 
+    @SuppressWarnings("unused")
     public Role(String name) {
         this.name = name;
     }

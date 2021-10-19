@@ -29,6 +29,7 @@ public class Email extends BeanValidatable<Email> {
         this.value = value;
     }
 
+    @SuppressWarnings("unused")
     public Email(long id, String value) {
         this.id = id;
         this.value = value;

@@ -6,7 +6,6 @@ import io.gjorovski.author.domain.util.ExtendedStringUtils;
 import io.gjorovski.author.domain.util.ListUtils;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -56,10 +55,12 @@ public class User extends BeanValidatable<User> {
         email.verify();
     }
 
+    @SuppressWarnings("unused")
     public void addRole(Role role) {
         roles.add(role);
     }
 
+    @SuppressWarnings("unused")
     public void removeRole(Role role) {
         roles.remove(role);
     }

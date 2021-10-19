@@ -1,7 +1,6 @@
 package io.gjorovski.author.domain.entity;
 
 import io.gjorovski.author.domain.exception.InvalidEmailVerificationException;
-import io.gjorovski.author.domain.util.AttributeViolation;
 import io.gjorovski.author.domain.util.BeanValidatable;
 import io.gjorovski.author.domain.util.Violation;
 import lombok.*;
@@ -60,6 +59,7 @@ public class EmailVerification extends BeanValidatable<EmailVerification> {
     /**
      * Activates the user that the verification object holds.
      */
+    @SuppressWarnings("unused")
     public void verify() {
         if (isInvalid()) {
             throw new InvalidEmailVerificationException(validate());
